@@ -1,0 +1,6 @@
+name = "Lodash"
+# badges = ["travis"]
+authority="cpan:KFLY"
+
+module_maker="ModuleBuildTiny"
+
