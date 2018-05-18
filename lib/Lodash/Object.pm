@@ -6,16 +6,15 @@ use Carp qw();
 use Module::Find qw();
 use String::CamelCase qw();
 
-sub import {
-    my $class = shift;
+{
     my @modules = Module::Find::usesub Lodash::Functions;
     for my $module (@modules) {
         my $method = String::CamelCase::decamelize($module =~ m!::([^:]+)$!);
 
         no strict qw/refs/;
-        *{"${class}::${method}"} = sub {
+        my $fun = "${module}::${method}";
+        *{"@{[__PACKAGE__]}::${method}"} = sub {
             shift; # not use $class
-            my $fun = "${module}::_${method}";
             $fun->(@_);
         }
     }

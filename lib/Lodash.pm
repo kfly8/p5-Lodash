@@ -4,7 +4,9 @@ use strict;
 use warnings;
 use parent qw(Exporter::Tiny);
 
+use String::CamelCase qw();
 use Module::Find qw();
+
 use Lodash::Object;
 use Lodash::Wrapper;
 
@@ -14,25 +16,27 @@ our @EXPORT = qw(_);
 
 our %EXPORT_TAGS = (
     core  => [qw(_)],
-    math  => [qw(_add _add_)],
+    math  => [qw(_add)],
     all   => [qw(:core :math)],
 );
 
+our @EXPORT_OK;
 {
     my @modules = Module::Find::usesub Lodash::Functions;
-    $_->import for @modules;
+    for my $module (@modules) {
+        my ($method) = String::CamelCase::decamelize($module =~ m!::([^:]+)$!);
 
-    our @EXPORT_OK = (
-        map {
-            my $src = sprintf('@%s::EXPORT', $_);
-            eval $src ## no critic
-        } @modules
-    );
+        no strict qw/refs/;
+        my $fun  = "${module}::${method}";
+        my $name = "_${method}";
+        *{$name} = \&$fun;
+
+        push @EXPORT_OK => $name;
+    }
 }
 
 # generate `_`
 sub _generate__ {
-    my ($class, $name, $value, $globals) = @_;
 
     my $object = Lodash::Object->new;
     sub {

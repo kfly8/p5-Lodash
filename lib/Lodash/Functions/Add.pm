@@ -1,23 +1,21 @@
 package Lodash::Functions::Add;
-use v5.16.3;
 use strict;
 use warnings;
-use parent qw(Exporter::Tiny);
 
-our @EXPORT = qw(_add _add_);
+use Lodash::Internal::CreateMathOperation;
 
-sub _add {
-    add(@_)
-}
-
-sub _add_ {
-    \&_add
-}
-
-sub add {
-    my ($augend, $addend) = @_;
-    $augend + $addend
-}
+sub add;
+*add = create_math_operation(
+    default_value => 0,
+    number => sub {
+        my ($augend, $addend) = @_;
+        $augend + $addend
+    },
+    string => sub {
+        my ($augend, $addend) = @_;
+        $augend . $addend
+    },
+);
 
 1;
 __END__
@@ -26,12 +24,31 @@ __END__
 
 =head1 NAME
 
-Lodash::Functions::Add - caption
+Lodash::Functions::Add - Adds two numbers
 
 =head1 SYNOPSIS
 
-use Lodash::Functions::Add;
+    use Test::More;
+
+    use Lodash::Functions::Add;
+
+    subtest 'add two numbers' => sub {
+        is Lodash::Functions::Add::add(6, 4), 10;
+        is Lodash::Functions::Add::add(-6, 4), -2;
+        is Lodash::Functions::Add::add(-6, -4), -10;
+    };
+
+    subtest 'not coerce arguments to numbers' => sub {
+        is Lodash::Functions::Add::add('6', '4'), '64';
+        is Lodash::Functions::Add::add('x', 'y'), 'xy';
+    };
+
+    done_testing;
 
 =head1 DESCRIPTION
 
-Lodash::Functions::Add is description
+Return the total value from the two numbers
+
+=head1 SEE ALSO
+
+L<https://github.com/lodash/lodash/blob/master/add.js>
