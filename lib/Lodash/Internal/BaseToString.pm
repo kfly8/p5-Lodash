@@ -7,14 +7,14 @@ use parent qw(Exporter::Tiny);
 
 our @EXPORT = qw(base_to_string);
 
-use Lodash::JavaScript qw(is_string is_array_ref);
+use Lodash::JavaScript qw(is_string is_array);
 
 sub base_to_string {
     my $value = shift;
     if (is_string($value)) {
         return $value;
     }
-    if (is_array_ref($value)) {
+    if (is_array($value)) {
         return "@$value";
     }
 

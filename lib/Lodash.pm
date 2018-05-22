@@ -4,9 +4,10 @@ use strict;
 use warnings;
 use parent qw(Exporter::Tiny);
 
-use String::CamelCase qw();
-use Module::Find qw();
+use String::CamelCase ();
+use Module::Find ();
 
+use Lodash::Util qw(guess_func_name_by_module);
 use Lodash::Object;
 use Lodash::Wrapper;
 
@@ -16,15 +17,16 @@ our @EXPORT = qw(_);
 
 our %EXPORT_TAGS = (
     core  => [qw(_)],
-    math  => [qw(_add)],
-    all   => [qw(:core :math)],
+    math  => [qw(_add _ceil)],
+    lang  => [qw(_is_number _is_NaN _to_number)],
+    all   => [qw(:core :math :lang)],
 );
 
 our @EXPORT_OK;
 {
     my @modules = Module::Find::usesub Lodash::Functions;
     for my $module (@modules) {
-        my ($method) = String::CamelCase::decamelize($module =~ m!::([^:]+)$!);
+        my $method = guess_func_name_by_module($module);
 
         no strict qw/refs/;
         my $fun  = "${module}::${method}";

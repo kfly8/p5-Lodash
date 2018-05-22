@@ -51,4 +51,4 @@ Return the total value from the two numbers
 
 =head1 SEE ALSO
 
-L<https://github.com/lodash/lodash/blob/master/add.js>
+L<https://lodash.com/docs/4.17.10#add>

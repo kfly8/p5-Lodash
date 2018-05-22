@@ -4,13 +4,16 @@ use warnings;
 use utf8;
 use parent qw(Exporter::Tiny);
 
-our @EXPORT_OK = qw(is_number is_string is_array_ref);
+our @EXPORT_OK = qw(is_number is_string is_array);
 
 use Scalar::Util ();
 use Data::Util ();
 
 sub is_number {
-    Scalar::Util::looks_like_number($_[0]);
+    my $value = shift;
+    Scalar::Util::looks_like_number($value)
+        && ($value ^ $value) eq 0
+        && !Scalar::Util::isdual($value)
 }
 
 sub is_string {
@@ -27,7 +30,7 @@ sub is_string {
     return !!0
 }
 
-sub is_array_ref {
+sub is_array {
     Data::Util::is_array_ref($_[0]);
 }
 
