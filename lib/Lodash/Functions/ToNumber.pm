@@ -46,12 +46,41 @@ __END__
 
 =head1 NAME
 
-Lodash::Functions::ToNumber - caption
+Lodash::Functions::ToNumber - Converts value to a number
 
 =head1 SYNOPSIS
 
-use Lodash::Functions::ToNumber;
+    use POSIX qw(NaN);
+    use Lodash::Functions::ToNumber;
+
+    # number primitives to numbers
+    Lodash::Functions::ToNumber::to_number(10);          # => 10
+    Lodash::Functions::ToNumber::to_number(1_000);       # => 1000
+    Lodash::Functions::ToNumber::to_number(1.234567890); # => 1.23456789
+    Lodash::Functions::ToNumber::to_number(5e2);         # => 500
+
+    # strings to numbers
+    Lodash::Functions::ToNumber::to_number('10');          # => 10
+    Lodash::Functions::ToNumber::to_number('1_000');       # => 1000
+    Lodash::Functions::ToNumber::to_number('1.234567890'); # => 1.23456789
+    Lodash::Functions::ToNumber::to_number('5e2');         # => 500
+    Lodash::Functions::ToNumber::to_number('0b10');        # => 2
+
+    # invalid strings to NaN
+    Lodash::Functions::ToNumber::to_number('5e');     # => NaN
+    Lodash::Functions::ToNumber::to_number('NaNfoo'); # => NaN
+
+    # objects to numbers
+    Lodash::Functions::ToNumber::to_number([]);     # => 0
+    Lodash::Functions::ToNumber::to_number([2]);    # => 2
+    Lodash::Functions::ToNumber::to_number([0, 0]); # => NaN
+    Lodash::Functions::ToNumber::to_number({});     # => NaN
 
 =head1 DESCRIPTION
 
-Lodash::Functions::ToNumber is description
+Converts value to a number.
+
+=head1 SEE ALSO
+
+L<https://lodash.com/docs/4.17.10#toNumber>
+

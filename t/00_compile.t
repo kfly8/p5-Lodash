@@ -1,9 +1,11 @@
 use strict;
-use Test::More 0.98;
+use warnings;
+use Test::More;
 
-use_ok $_ for qw(
-    Lodash
-);
+use Module::Find qw(findallmod);
+my @found = findallmod Lodash;
+
+use_ok $_ for @found;
 
 done_testing;
 

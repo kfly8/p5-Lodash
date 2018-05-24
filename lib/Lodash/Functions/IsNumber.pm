@@ -18,15 +18,25 @@ Lodash::Functions::IsNumber - Returns `true` if `value` is a number, else `false
 
 =head1 SYNOPSIS
 
-    use Test::More;
+    use POSIX qw(NaN Inf);
     use Lodash::Functions::IsNumber;
-    use POSIX qw(Inf NaN)
 
-    ok Lodash::Functions::IsNumber::isNumber(3);
-    ok Lodash::Functions::IsNumber::isNumber(Inf);
-    ok Lodash::Functions::IsNumber::isNumber(NaN);
+    Lodash::Functions::IsNumber::is_number(3);   # => 1
+    Lodash::Functions::IsNumber::is_number(0);   # => 1
+    Lodash::Functions::IsNumber::is_number(NaN); # => 1
+    Lodash::Functions::IsNumber::is_number(Inf); # => 1
 
-    ok not Lodash::Functions::IsNumber::isNumber('3');
+    Lodash::Functions::IsNumber::is_number('0');        # => 0
+    Lodash::Functions::IsNumber::is_number('3');        # => 0
+    Lodash::Functions::IsNumber::is_number('NaN');      # => 0
+    Lodash::Functions::IsNumber::is_number('Inf');      # => 0
+    Lodash::Functions::IsNumber::is_number('Infinity'); # => 0
 
-    done_testing;
+=head1 DESCRIPTION
+
+Checks if value is classified as a Number primitive or object.
+
+=head1 SEE ALSO
+
+L<https://lodash.com/docs/4.17.10#isNumber>
 

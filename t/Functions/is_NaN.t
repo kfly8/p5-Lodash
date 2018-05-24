@@ -11,6 +11,8 @@ ok Lodash::Functions::IsNaN::is_NaN(NaN);
 
 ok not Lodash::Functions::IsNaN::is_NaN(3);
 ok not Lodash::Functions::IsNaN::is_NaN(0);
+ok not Lodash::Functions::IsNaN::is_NaN('');
+ok not Lodash::Functions::IsNaN::is_NaN(undef);
 ok not Lodash::Functions::IsNaN::is_NaN(Inf);
 ok not Lodash::Functions::IsNaN::is_NaN([1,2,3]);
 ok not Lodash::Functions::IsNaN::is_NaN(!!1);

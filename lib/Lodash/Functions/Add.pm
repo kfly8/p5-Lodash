@@ -28,22 +28,16 @@ Lodash::Functions::Add - Adds two numbers
 
 =head1 SYNOPSIS
 
-    use Test::More;
-
     use Lodash::Functions::Add;
 
-    subtest 'add two numbers' => sub {
-        is Lodash::Functions::Add::add(6, 4), 10;
-        is Lodash::Functions::Add::add(-6, 4), -2;
-        is Lodash::Functions::Add::add(-6, -4), -10;
-    };
+    # add two numbers
+    Lodash::Functions::Add::add(6, 4);   # => 10;
+    Lodash::Functions::Add::add(-6, 4);  # => -2;
+    Lodash::Functions::Add::add(-6, -4); # => -10;
 
-    subtest 'not coerce arguments to numbers' => sub {
-        is Lodash::Functions::Add::add('6', '4'), '64';
-        is Lodash::Functions::Add::add('x', 'y'), 'xy';
-    };
-
-    done_testing;
+    # concat two strings
+    Lodash::Functions::Add::add('6', '4'); # => '64';
+    Lodash::Functions::Add::add('x', 'y'); # => 'xy';
 
 =head1 DESCRIPTION
 
