@@ -17,7 +17,7 @@ our @EXPORT = qw(_);
 
 our %EXPORT_TAGS = (
     core  => [qw(_)],
-    math  => [qw(_add _ceil)],
+    math  => [qw(_add _ceil _devide)],
     lang  => [qw(_is_number _is_NaN _to_number)],
     all   => [qw(:core :math :lang)],
 );
